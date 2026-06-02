@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you go on a date with me?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="progress-bar" class="hidden">
+        <div class="heart" id="heart-1">❤️</div>
+        <div class="line" id="line-1"></div>
+        <div class="heart" id="heart-2">❤️</div>
+        <div class="line" id="line-2"></div>
+        <div class="heart" id="heart-3">❤️</div>
+        <div class="line" id="line-3"></div>
+        <div class="heart" id="heart-4">❤️</div>
+    </div>
+
+    <section id="section-0" class="container active">
+        <img src="assets/main-image.jpg" alt="Cute invite" class="main-image">
+        <h1>Will you go on a date with me?</h1>
+        <div class="button-group">
+            <button id="btn-yes" class="btn primary">Yes</button>
+            <button id="btn-no" class="btn secondary">No</button>
+        </div>
+    </section>
+
+    <section id="section-1" class="container hidden">
+        <h1>Wow, she said yes! 🎉</h1>
+        <button id="btn-continue-1" class="btn primary mt-2">Continue!</button>
+    </section>
+
+    <section id="section-2" class="container hidden">
+        <h2>When are you free my love?</h2>
+        <div class="form-group">
+            <input type="date" id="date-picker" class="input-box">
+            <select id="activity-picker" class="input-box">
+                <option value="" disabled selected>Select time & activity</option>
+                <option value="18:00 - Movie night">18:00 - Movie night</option>
+                <option value="19:00 - Dinner & Walk">19:00 - Dinner & Walk</option>
+                <option value="20:00 - Cafe & Chill">20:00 - Cafe & Chill</option>
+            </select>
+        </div>
+        <button id="btn-continue-2" class="btn primary mt-2">Continue please!</button>
+    </section>
+
+    <section id="section-3" class="container hidden">
+        <h1>What are we feeling?</h1>
+        <p class="subtext">(You can choose more than one)</p>
+        
+        <div class="food-grid">
+            <div class="food-card" data-food="Burger">
+                <img src="assets/burger.jpg" alt="Burger">
+                <span>Burger</span>
+            </div>
+            <div class="food-card" data-food="Sushi">
+                <img src="assets/sushi.jpg" alt="Sushi">
+                <span>Sushi</span>
+            </div>
+            <div class="food-card" data-food="Pizza">
+                <img src="assets/pizza.jpg" alt="Pizza">
+                <span>Pizza</span>
+            </div>
+            <div class="food-card" data-food="Steak">
+                <img src="assets/steak.jpg" alt="Steak">
+                <span>Steak</span>
+            </div>
+            <div class="food-card" data-food="Hotpot">
+                <img src="assets/hotpot.jpg" alt="Hotpot">
+                <span>Hotpot</span>
+            </div>
+            <div class="food-card" data-food="Dessert">
+                <img src="assets/dessert.jpg" alt="Dessert">
+                <span>Dessert</span>
+            </div>
+        </div>
+
+        <button id="btn-continue-3" class="btn primary mt-2">Continue</button>
+    </section>
+
+    <section id="section-4" class="container hidden">
+        <div class="summary-header">
+            <h1>It's a date!</h1>
+            <p>I can't wait to see you.</p>
+            <p class="small-text">Here is our plan:</p>
+        </div>
+
+        <div class="summary-content">
+            <div class="summary-row">
+                <span class="emoji">📅</span>
+                <div class="text-block">
+                    <span class="label">Date</span>
+                    <span class="value" id="summary-date-time">...</span>
+                </div>
+            </div>
+            <div class="summary-row">
+                <span class="emoji">🍴</span>
+                <div class="text-block">
+                    <span class="label">Food</span>
+                    <span class="value" id="summary-food">...</span>
+                </div>
+            </div>
+        </div>
+
+        <button id="btn-copy" class="btn primary mt-2">Copy plan & text me</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

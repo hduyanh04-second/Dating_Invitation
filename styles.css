@@ -1,0 +1,227 @@
+/* Khởi tạo biến màu và reset CSS */
+:root {
+    --bg-color: #fce4ec; /* Hồng lạnh rất nhạt */
+    --text-color: #880e4f; /* Đỏ đô/Hồng lạnh đậm */
+    --btn-primary: #d81b60; 
+    --btn-primary-hover: #ad1457;
+    --heart-inactive: grayscale(100%) opacity(40%);
+    --heart-active: grayscale(0%) opacity(100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* ---------------- PROGRESS BAR ---------------- */
+#progress-bar {
+    position: fixed;
+    top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+.heart {
+    font-size: 24px;
+    filter: var(--heart-inactive);
+    transition: filter 0.5s ease;
+}
+.line {
+    width: 30px;
+    height: 3px;
+    background-color: #ccc;
+    transition: background-color 0.5s ease;
+}
+.heart.glowing {
+    filter: var(--heart-active);
+    text-shadow: 0 0 10px rgba(216, 27, 96, 0.5);
+}
+.line.glowing {
+    background-color: var(--btn-primary);
+}
+
+/* ---------------- LAYOUT & SECTIONS ---------------- */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+.subtext {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+/* ---------------- ELEMENTS ---------------- */
+.main-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Nút bấm */
+.button-group {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    margin-top: 20px;
+}
+.btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn.primary {
+    background-color: var(--btn-primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
+}
+.btn.primary:hover {
+    background-color: var(--btn-primary-hover);
+    transform: translateY(-2px);
+}
+.btn.secondary {
+    background-color: white;
+    color: var(--btn-primary);
+    border: 2px solid var(--btn-primary);
+    position: relative; /* Cần thiết để nút No có thể nhảy */
+}
+.mt-2 {
+    margin-top: 30px;
+}
+
+/* Form Inputs (DatePicker & Dropdown) */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+.input-box {
+    padding: 12px;
+    border: 2px solid #f48fb1;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--text-color);
+    background: white;
+    outline: none;
+}
+
+/* Grid đồ ăn (3 ngang x 2 dọc) */
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.food-card {
+    background: white;
+    border: 3px solid transparent;
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.food-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.food-card span {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+/* Hiệu ứng khi chọn món ăn */
+.food-card.selected {
+    border-color: var(--btn-primary);
+    transform: scale(1.05);
+    background-color: #fce4ec;
+}
+
+/* Summary Section */
+.summary-header {
+    margin-bottom: 30px;
+}
+.summary-header .small-text {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.summary-content {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.summary-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+}
+.summary-row .emoji {
+    font-size: 2rem;
+}
+.text-block {
+    display: flex;
+    flex-direction: column;
+}
+.text-block .label {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.text-block .value {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
