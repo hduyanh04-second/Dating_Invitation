@@ -19,8 +19,9 @@
     </div>
 
     <section id="section-0" class="container active">
-        <img src="assets/main-image.jpg" alt="Cute invite" class="main-image">
+        <img src="assets/photo1.jpg" class="main-image">
         <h1>Will you go on a date with me?</h1>
+        <h2>💖💖💖💖💖</h2>
         <div class="button-group">
             <button id="btn-yes" class="btn primary">Yes</button>
             <button id="btn-no" class="btn secondary">No</button>
@@ -28,56 +29,71 @@
     </section>
 
     <section id="section-1" class="container hidden">
+        <img src="assets/photo2.jpg" class="main-image">
         <h1>Wow, she said yes! 🎉</h1>
-        <button id="btn-continue-1" class="btn primary mt-2">Continue!</button>
+        <div class="button-group mt-2">
+            <button id="btn-back-1" class="btn secondary">Back</button>
+            <button id="btn-continue-1" class="btn primary">Continue!</button>
+        </div>
     </section>
 
     <section id="section-2" class="container hidden">
-        <h2>When are you free my love?</h2>
-        <div class="form-group">
-            <input type="date" id="date-picker" class="input-box">
-            <select id="activity-picker" class="input-box">
-                <option value="" disabled selected>Select time & activity</option>
-                <option value="18:00 - Movie night">18:00 - Movie night</option>
-                <option value="19:00 - Dinner & Walk">19:00 - Dinner & Walk</option>
-                <option value="20:00 - Cafe & Chill">20:00 - Cafe & Chill</option>
-            </select>
+        <div class="card-form">
+            <h2>When are you free my love?</h2>
+            <h2>🥰💖🥰💖</h2>
+            <div class="form-group">
+                <input type="date" id="date-picker" class="input-box">
+                <select id="activity-picker" class="input-box">
+                    <option value="" disabled selected>Select time & activity</option>
+                    <option value="18:00 - Movie 123">18:00 - Movie night</option>
+                    <option value="19:00 - Dinner & Walk">19:00 - Dinner & Walk</option>
+                    <option value="20:00 - Cafe & Chill">20:00 - Cafe & Chill</option>
+                </select>
+            </div>
+            <div class="button-group mt-2">
+                <button id="btn-back-2" class="btn secondary">Back</button>
+                <button id="btn-continue-2" class="btn primary">Continue please!</button>
+            </div>
         </div>
-        <button id="btn-continue-2" class="btn primary mt-2">Continue please!</button>
     </section>
 
     <section id="section-3" class="container hidden">
-        <h1>What are we feeling?</h1>
-        <p class="subtext">(You can choose more than one)</p>
-        
-        <div class="food-grid">
-            <div class="food-card" data-food="Burger">
-                <img src="assets/burger.jpg" alt="Burger">
-                <span>Burger</span>
+        <div class="card-form">
+            <h1>What are we feeling?</h1>
+            <p class="subtext">(You can choose burger or me 🍔)</p>
+            
+            <div class="food-grid">
+                <div class="food-card" data-food="Burger">
+                    <img src="assets/burger01.jpg" alt="Burger">
+                    <span>Burger</span>
+                </div>
+                <div class="food-card" data-food="Me">
+                    <img src="assets/me.jpg" alt="Me">
+                    <span>Me</span>
+                </div>
+                <div class="food-card" data-food="Burger">
+                    <img src="assets/burger02.jpg" alt="Burger">
+                    <span>Burger</span>
+                </div>
+                <div class="food-card" data-food="Me">
+                    <img src="assets/me.jpg" alt="Me">
+                    <span>Me</span>
+                </div>
+                <div class="food-card" data-food="Burger">
+                    <img src="assets/burger03.jpg" alt="Burger">
+                    <span>Burger</span>
+                </div>
+                <div class="food-card" data-food="Me">
+                    <img src="assets/me.jpg" alt="Me">
+                    <span>Me</span>
+                </div>
             </div>
-            <div class="food-card" data-food="Sushi">
-                <img src="assets/sushi.jpg" alt="Sushi">
-                <span>Sushi</span>
-            </div>
-            <div class="food-card" data-food="Pizza">
-                <img src="assets/pizza.jpg" alt="Pizza">
-                <span>Pizza</span>
-            </div>
-            <div class="food-card" data-food="Steak">
-                <img src="assets/steak.jpg" alt="Steak">
-                <span>Steak</span>
-            </div>
-            <div class="food-card" data-food="Hotpot">
-                <img src="assets/hotpot.jpg" alt="Hotpot">
-                <span>Hotpot</span>
-            </div>
-            <div class="food-card" data-food="Dessert">
-                <img src="assets/dessert.jpg" alt="Dessert">
-                <span>Dessert</span>
+
+            <div class="button-group mt-2">
+                <button id="btn-back-3" class="btn secondary">Back</button>
+                <button id="btn-continue-3" class="btn primary">Continue</button>
             </div>
         </div>
-
-        <button id="btn-continue-3" class="btn primary mt-2">Continue</button>
     </section>
 
     <section id="section-4" class="container hidden">
@@ -102,10 +118,20 @@
                     <span class="value" id="summary-food">...</span>
                 </div>
             </div>
+        </div>                
+        
+        <div class="summary-actions mt-2">
+            <button id="btn-copy" class="btn primary">Copy plan & text me</button>
+            <button id="btn-back-4" class="btn secondary btn-small">Back</button>
         </div>
-
-        <button id="btn-copy" class="btn primary mt-2">Copy plan & text me</button>
     </section>
+
+    <div id="custom-popup" class="popup-overlay hidden">
+        <div class="popup-content">
+            <p id="popup-message"></p>
+            <button id="btn-close-popup" class="btn primary">Got it! 💕</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

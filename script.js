@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ---- BIẾN LƯU TRỮ DỮ LIỆU ----
     let selectedDate = "";
     let selectedActivity = "";
     let selectedFoods = [];
 
-    // ---- CÁC HÀM TIỆN ÍCH ----
     // Chuyển đổi giữa các section
     function switchSection(fromId, toId) {
         document.getElementById(`section-${fromId}`).classList.add("hidden");
@@ -12,24 +10,33 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById(`section-${toId}`).classList.add("active");
     }
 
-    // Hiển thị và Cập nhật thanh Progress Bar
+    // Hiển thị và Cập nhật thanh Progress Bar (Đi tới)
     function updateProgress(step) {
         const progressBar = document.getElementById("progress-bar");
-        if (step > 0) {
-            progressBar.classList.remove("hidden");
-        }
+        if (step > 0) progressBar.classList.remove("hidden");
         
-        // Sáng tim
         document.getElementById(`heart-${step}`).classList.add("glowing");
-        // Sáng line (nếu có line trước đó)
         if (step > 1) {
             document.getElementById(`line-${step - 1}`).classList.add("glowing");
         }
     }
 
+    // Tắt đèn thanh Progress Bar (Đi lùi)
+    function reverseProgress(step) {
+        // Tắt tim hiện tại
+        document.getElementById(`heart-${step}`).classList.remove("glowing");
+        // Tắt line ở phía trước nó (nếu có)
+        if (step > 1) {
+            document.getElementById(`line-${step - 1}`).classList.remove("glowing");
+        }
+        // Nếu lùi về section 0 (trang đầu) thì giấu luôn cả thanh progress
+        if (step === 1) {
+            document.getElementById("progress-bar").classList.add("hidden");
+        }
+    }
+
     // ---- LOGIC: TRANG ĐẦU -> NÚT NO DI CHUYỂN ----
     const btnNo = document.getElementById("btn-no");
-    // Tạo 3 tọa độ (x, y) để nút No nhảy tới
     const noPositions = [
         { x: 120, y: -60 },
         { x: -120, y: 80 },
@@ -38,49 +45,62 @@ document.addEventListener("DOMContentLoaded", () => {
     let positionIndex = 0;
 
     btnNo.addEventListener("mouseover", () => {
-        // Áp dụng transform để di chuyển mượt mà mà không làm vỡ layout (position absolute đôi khi gây lệch)
         btnNo.style.transform = `translate(${noPositions[positionIndex].x}px, ${noPositions[positionIndex].y}px)`;
-        // Tăng index để lần hover sau nhảy ra chỗ khác
         positionIndex = (positionIndex + 1) % noPositions.length; 
     });
 
-    // ---- LOGIC CHUYỂN TRANG ----
+    // ---- LOGIC CHUYỂN TRANG: ĐI TIẾP ----
     
-    // Nút YES ở intro (0 -> 1)
+    // Nút YES
     document.getElementById("btn-yes").addEventListener("click", () => {
         switchSection(0, 1);
-        updateProgress(1); // Tim 1 sáng
+        updateProgress(1); 
     });
 
-    // Nút Continue ở section 1 (1 -> 2)
+    // Nút Continue 1
     document.getElementById("btn-continue-1").addEventListener("click", () => {
         switchSection(1, 2);
-        updateProgress(2); // Tim 2 sáng, Line 1 sáng
+        updateProgress(2); 
     });
 
-    // Nút Continue ở section 2 (2 -> 3)
+    // ---- LOGIC CUSTOM POPUP ----
+    const customPopup = document.getElementById("custom-popup");
+    const popupMessage = document.getElementById("popup-message");
+    const btnClosePopup = document.getElementById("btn-close-popup");
+
+    // Hàm hiển thị Popup
+    function showPopup(message) {
+        popupMessage.textContent = message;      // Gắn nội dung chữ
+        customPopup.classList.remove("hidden");  // Hiển thị khung popup
+    }
+
+    // Nút đóng Popup
+    btnClosePopup.addEventListener("click", () => {
+        customPopup.classList.add("hidden");
+    });
+
+    // ---- NÚT CONTINUE 2 (Đã thay alert) ----
     document.getElementById("btn-continue-2").addEventListener("click", () => {
-        // Lấy dữ liệu
         selectedDate = document.getElementById("date-picker").value;
         selectedActivity = document.getElementById("activity-picker").value;
         
-        // Validation nhỏ (Tùy chọn: bạn có thể bắt buộc người ta phải chọn)
-        if(!selectedDate) selectedDate = "Any day you want";
-        if(!selectedActivity) selectedActivity = "Anytime";
+        // Validation: Sử dụng hàm showPopup thay cho alert
+        if (!selectedDate || !selectedActivity) {
+            showPopup("Please pick a date and an activity so I can prepare! 🥰");
+            return; 
+        }
 
         switchSection(2, 3);
-        updateProgress(3); // Tim 3 sáng, Line 2 sáng
+        updateProgress(3); 
     });
 
     // ---- LOGIC: CHỌN ĐỒ ĂN ----
     const foodCards = document.querySelectorAll(".food-card");
     foodCards.forEach(card => {
         card.addEventListener("click", () => {
-            // Toggle class selected để đổi viền (CSS)
             card.classList.toggle("selected");
             const foodName = card.getAttribute("data-food");
             
-            // Nếu card đang được chọn thì push vào mảng, nếu bỏ chọn thì xóa khỏi mảng
             if (card.classList.contains("selected")) {
                 selectedFoods.push(foodName);
             } else {
@@ -89,18 +109,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Nút Continue ở section 3 (3 -> 4) - TỔNG KẾT
+    // ---- NÚT CONTINUE 3 (Đã thay alert) ----
     document.getElementById("btn-continue-3").addEventListener("click", () => {
-        switchSection(3, 4);
-        updateProgress(4); // Tim 4 sáng, Line 3 sáng
+        // Validation: Sử dụng hàm showPopup thay cho alert
+        if (selectedFoods.length === 0) {
+            showPopup("Please select at least one thing you'd like to eat! 🍔");
+            return; 
+        }
 
-        // Xử lý hiển thị ngày giờ
+        switchSection(3, 4);
+        updateProgress(4); 
+
         const dateTimeDisplay = `${selectedDate} | ${selectedActivity}`;
         document.getElementById("summary-date-time").textContent = dateTimeDisplay;
+        document.getElementById("summary-food").textContent = selectedFoods.join(", ");
+    });
 
-        // Xử lý hiển thị món ăn
-        let foodDisplay = selectedFoods.length > 0 ? selectedFoods.join(", ") : "You decide!";
-        document.getElementById("summary-food").textContent = foodDisplay;
+    // ---- LOGIC CHUYỂN TRANG: ĐI LÙI (BACK BUTTONS) ----
+    
+    document.getElementById("btn-back-1").addEventListener("click", () => {
+        switchSection(1, 0);
+        reverseProgress(1); // Tắt tim 1
+    });
+
+    document.getElementById("btn-back-2").addEventListener("click", () => {
+        switchSection(2, 1);
+        reverseProgress(2); // Tắt tim 2, line 1
+    });
+
+    document.getElementById("btn-back-3").addEventListener("click", () => {
+        switchSection(3, 2);
+        reverseProgress(3); // Tắt tim 3, line 2
     });
 
     // ---- LOGIC: COPY TEXT ----
@@ -110,9 +149,21 @@ document.addEventListener("DOMContentLoaded", () => {
         navigator.clipboard.writeText(textToCopy).then(() => {
             const btnCopy = document.getElementById("btn-copy");
             btnCopy.textContent = "Copied! Now text me 💕";
-            btnCopy.style.backgroundColor = "#4caf50"; // Đổi màu xanh lá báo thành công
+            btnCopy.style.backgroundColor = "#4caf50"; 
         }).catch(err => {
-            alert("Oops, unable to copy. Please manually copy the plan!");
+            // Thay alert nếu copy lỗi
+            showPopup("Oops, unable to copy. Please manually copy the plan!");
         });
+    });
+
+    document.getElementById("btn-back-3").addEventListener("click", () => {
+        switchSection(3, 2);
+        reverseProgress(3); // Tắt tim 3, line 2
+    });
+
+    // Thêm logic cho nút Back cuối cùng (Section 4 về Section 3)
+    document.getElementById("btn-back-4").addEventListener("click", () => {
+        switchSection(4, 3);
+        reverseProgress(4); // Tắt tim 4, line 3
     });
 });
